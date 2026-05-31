@@ -1,0 +1,506 @@
+/* ------------------------------------------------------------
+   GOOGLE FONTS
+------------------------------------------------------------ */
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@import "tailwindcss";
+
+/* ============================================================
+   PRISM DESIGN SYSTEM
+   The single source of truth for every visual decision.
+   Every color, font, shadow, radius, and spacing value
+   used anywhere in PRISM lives here first.
+============================================================ */
+
+
+/* ------------------------------------------------------------
+   CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+------------------------------------------------------------ */
+:root {
+
+  /* --- BRAND COLORS --- */
+  --prism-red:           #E63946;
+  --prism-amber:         #F4A261;
+  --prism-green:         #2D9E5F;
+  --prism-red-light:     rgba(230, 57, 70, 0.08);
+  --prism-amber-light:   rgba(244, 162, 97, 0.10);
+  --prism-green-light:   rgba(45, 158, 95, 0.08);
+  --prism-red-border:    rgba(230, 57, 70, 0.20);
+  --prism-amber-border:  rgba(244, 162, 97, 0.25);
+  --prism-green-border:  rgba(45, 158, 95, 0.20);
+
+  /* --- BACKGROUNDS --- */
+  --bg-page:             #F9F7F4;   /* warm off-white — main page background */
+  --bg-card:             #FFFFFF;   /* pure white — cards and surfaces */
+  --bg-subtle:           #F0EDE8;   /* slightly darker — section backgrounds */
+  --bg-hover:            #ECEAE6;   /* hover states on subtle backgrounds */
+  --bg-input:            #FFFFFF;   /* input fields */
+  --bg-overlay:          rgba(26, 26, 26, 0.50); /* modal backdrop */
+
+  /* --- TEXT --- */
+  --text-primary:        #1A1A1A;   /* headings, important text */
+  --text-secondary:      #555555;   /* body text, descriptions */
+  --text-muted:          #909090;   /* placeholders, timestamps, labels */
+  --text-inverse:        #FFFFFF;   /* text on dark backgrounds */
+  --text-link:           #2D9E5F;   /* clickable links */
+
+  /* --- BORDERS --- */
+  --border-default:      #E8E4DE;   /* standard card/section borders */
+  --border-strong:       #D4CFC8;   /* stronger separation */
+  --border-focus:        #2D9E5F;   /* focused input ring */
+
+  /* --- SHADOWS --- */
+  --shadow-xs:           0 1px 3px rgba(0,0,0,0.05);
+  --shadow-sm:           0 2px 8px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md:           0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+  --shadow-lg:           0 12px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.05);
+  --shadow-xl:           0 24px 64px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.06);
+  --shadow-modal:        0 32px 80px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.08);
+
+  /* --- TYPOGRAPHY --- */
+  --font-display:        'Bricolage Grotesque', sans-serif;
+  --font-body:           'DM Sans', sans-serif;
+  --font-mono:           'JetBrains Mono', monospace;
+
+  /* --- FONT SIZES --- */
+  --text-xs:             11px;
+  --text-sm:             13px;
+  --text-base:           15px;
+  --text-md:             17px;
+  --text-lg:             20px;
+  --text-xl:             24px;
+  --text-2xl:            32px;
+  --text-3xl:            40px;
+  --text-4xl:            52px;
+  --text-5xl:            64px;
+
+  /* --- FONT WEIGHTS --- */
+  --weight-regular:      400;
+  --weight-medium:       500;
+  --weight-semibold:     600;
+  --weight-bold:         700;
+  --weight-extrabold:    800;
+
+  /* --- LINE HEIGHTS --- */
+  --leading-tight:       1.08;
+  --leading-snug:        1.25;
+  --leading-normal:      1.5;
+  --leading-relaxed:     1.7;
+
+  /* --- LETTER SPACING --- */
+  --tracking-tight:      -0.03em;
+  --tracking-normal:     -0.01em;
+  --tracking-wide:       0.04em;
+  --tracking-wider:      0.08em;
+  --tracking-widest:     0.12em;
+
+  /* --- SPACING SCALE --- */
+  --space-1:             4px;
+  --space-2:             8px;
+  --space-3:             12px;
+  --space-4:             16px;
+  --space-5:             20px;
+  --space-6:             24px;
+  --space-8:             32px;
+  --space-10:            40px;
+  --space-12:            48px;
+  --space-16:            64px;
+  --space-20:            80px;
+  --space-24:            96px;
+  --space-32:            128px;
+
+  /* --- BORDER RADIUS --- */
+  --radius-sm:           6px;
+  --radius-md:           10px;
+  --radius-lg:           14px;
+  --radius-xl:           20px;
+  --radius-2xl:          28px;
+  --radius-full:         9999px;
+
+  /* --- TRANSITIONS --- */
+  --transition-fast:     0.15s ease;
+  --transition-base:     0.25s ease;
+  --transition-slow:     0.4s ease;
+  --transition-spring:   0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* --- Z-INDEX SCALE --- */
+  --z-base:              1;
+  --z-dropdown:          10;
+  --z-sticky:            50;
+  --z-modal-backdrop:    100;
+  --z-modal:             110;
+  --z-toast:             200;
+
+  /* --- LAYOUT --- */
+  --container-max:       1200px;
+  --container-narrow:    760px;
+  --container-wide:      1400px;
+  --nav-height:          68px;
+  --section-padding-y:   120px;
+  --section-padding-x:   40px;
+}
+
+/* ------------------------------------------------------------
+   BASE RESET & DEFAULTS
+------------------------------------------------------------ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  background-color: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ------------------------------------------------------------
+   TYPOGRAPHY DEFAULTS
+------------------------------------------------------------ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-extrabold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+}
+
+h1 { font-size: clamp(40px, 6vw, var(--text-5xl)); }
+h2 { font-size: clamp(30px, 4vw, var(--text-4xl)); }
+h3 { font-size: clamp(20px, 2.5vw, var(--text-2xl)); }
+h4 { font-size: var(--text-xl); }
+h5 { font-size: var(--text-lg); }
+h6 { font-size: var(--text-base); }
+
+p {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+strong { font-weight: var(--weight-semibold); }
+
+code, pre, kbd {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, textarea, select {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  outline: none;
+  border: none;
+  background: none;
+}
+
+ul, ol { list-style: none; }
+
+/* ------------------------------------------------------------
+   LAYOUT UTILITIES
+------------------------------------------------------------ */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--section-padding-x);
+  padding-right: var(--section-padding-x);
+}
+
+.container--narrow {
+  max-width: var(--container-narrow);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--section-padding-x);
+  padding-right: var(--section-padding-x);
+}
+
+.section {
+  padding-top: var(--section-padding-y);
+  padding-bottom: var(--section-padding-y);
+}
+
+.section--subtle {
+  background-color: var(--bg-subtle);
+}
+
+/* ------------------------------------------------------------
+   SCROLL REVEAL ANIMATION
+------------------------------------------------------------ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--transition-slow),
+    transform var(--transition-slow);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+.reveal-delay-5 { transition-delay: 0.40s; }
+.reveal-delay-6 { transition-delay: 0.48s; }
+
+/* ------------------------------------------------------------
+   KEYFRAME ANIMATIONS
+------------------------------------------------------------ */
+
+/* Pulse — used on status dots and live indicators */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* Spin — used on loading states */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Fade up — used on modal and result cards */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade in — used on overlays */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Slide up — used on modal panel */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Scale in — used on badges and tooltips */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.90); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Prism refraction — logo animation */
+@keyframes prismPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.75; transform: scale(0.97); }
+}
+
+/* Band sweep — the colored bands in the loading logo */
+@keyframes bandSweep {
+  0%   { stroke-dashoffset: 100; opacity: 0; }
+  30%  { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+
+/* Count up shimmer — score number reveal */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Stagger category cards */
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Review strip scroll */
+@keyframes scrollLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Star fill animation */
+@keyframes starFill {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* ------------------------------------------------------------
+   ANIMATION UTILITY CLASSES
+------------------------------------------------------------ */
+.animate-pulse        { animation: pulse 2s ease-in-out infinite; }
+.animate-spin         { animation: spin 1s linear infinite; }
+.animate-fadeUp       { animation: fadeUp 0.4s ease-out forwards; }
+.animate-fadeIn       { animation: fadeIn 0.3s ease-out forwards; }
+.animate-slideUp      { animation: slideUp 0.45s cubic-bezier(0.34, 1.20, 0.64, 1) forwards; }
+.animate-scaleIn      { animation: scaleIn 0.25s var(--transition-spring) forwards; }
+.animate-prismPulse   { animation: prismPulse 2s ease-in-out infinite; }
+.animate-scrollLeft   { animation: scrollLeft 32s linear infinite; }
+
+/* ------------------------------------------------------------
+   SEVERITY / STATUS COLORS
+   Used across badges, finding rows, category cards
+------------------------------------------------------------ */
+.status-pass {
+  color: var(--prism-green);
+  background-color: var(--prism-green-light);
+  border-color: var(--prism-green-border);
+}
+
+.status-warning {
+  color: #b5671a;
+  background-color: var(--prism-amber-light);
+  border-color: var(--prism-amber-border);
+}
+
+.status-critical {
+  color: #c0242f;
+  background-color: var(--prism-red-light);
+  border-color: var(--prism-red-border);
+}
+
+/* ------------------------------------------------------------
+   FOCUS VISIBLE (ACCESSIBILITY)
+------------------------------------------------------------ */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ------------------------------------------------------------
+   SCROLLBAR STYLING
+------------------------------------------------------------ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ------------------------------------------------------------
+   SELECTION COLOR
+------------------------------------------------------------ */
+::selection {
+  background-color: rgba(45, 158, 95, 0.15);
+  color: var(--text-primary);
+}
+
+/* ------------------------------------------------------------
+   DOT GRID TEXTURE
+   Applied to hero sections as a background pattern
+------------------------------------------------------------ */
+.texture-dots {
+  background-color: var(--bg-page);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ccircle cx='1' cy='1' r='1' fill='%231A1A1A' opacity='0.10'/%3E%3C/svg%3E");
+  background-size: 32px 32px;
+}
+
+/* ------------------------------------------------------------
+   MODAL BACKDROP
+------------------------------------------------------------ */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: var(--z-modal-backdrop);
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+/* ------------------------------------------------------------
+   FROSTED GLASS SURFACE
+   Used for the sticky nav when scrolled
+------------------------------------------------------------ */
+.glass {
+  background: rgba(249, 247, 244, 0.85);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+/* ------------------------------------------------------------
+   SECTION LABEL (eyebrow text above headings)
+------------------------------------------------------------ */
+.section-label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+}
+
+/* ------------------------------------------------------------
+   RESPONSIVE BREAKPOINTS
+   We design mobile-first. These override for larger screens.
+------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  :root {
+    --section-padding-y:  80px;
+    --section-padding-x:  32px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --section-padding-y:  56px;
+    --section-padding-x:  16px;
+    --nav-height:         60px;
+  }
+
+  h1 { font-size: clamp(28px, 7vw, 44px); }
+  h2 { font-size: clamp(22px, 5vw, 32px); }
+
+  body { overflow-x: hidden; }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --section-padding-y:  48px;
+    --section-padding-x:  16px;
+  }
+
+  h1 { font-size: clamp(26px, 6.5vw, 36px); }
+  h2 { font-size: clamp(20px, 5vw, 28px); }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --section-padding-y:  48px;
+    --section-padding-x:  16px;
+  }
+}
