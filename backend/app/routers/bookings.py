@@ -2,8 +2,7 @@
 # PRISM BACKEND — BOOKINGS ROUTER
 # POST /api/bookings — submit a booking enquiry
 # GET  /api/bookings — list all bookings (admin)
-# ============================================================
-
+# =========================================================
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional
