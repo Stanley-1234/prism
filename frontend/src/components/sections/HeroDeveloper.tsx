@@ -52,7 +52,9 @@ export default function HeroDeveloper() {
               {/* LEFT — TEXT */}
               <div
                 style={{
-                  flex:      '0 0 460px',
+                  flex:     '0 0 460px',
+                  minWidth: 0,
+                  maxWidth: '100%',
                   animation: 'fadeUp 0.5s ease-out forwards',
                 }}
               >
@@ -258,6 +260,9 @@ export default function HeroDeveloper() {
         }
         @media (max-width: 900px) {
           .dev-hero-grid { flex-direction: column !important; gap: 40px !important; }
+        }
+        @media (max-width: 768px) {
+          .dev-hero-grid > div { flex: 1 1 100% !important; min-width: 0 !important; max-width: 100% !important; }
         }
       `}</style>
     </>

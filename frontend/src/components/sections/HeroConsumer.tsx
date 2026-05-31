@@ -118,7 +118,7 @@ export default function HeroConsumer() {
             </div>
 
             {/* HEADLINE */}
-            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(26px, 5.5vw, 72px)', fontWeight: 800, lineHeight: 1.06, letterSpacing: '-0.03em', color: 'var(--text-primary)', marginBottom: '28px' }}>
+            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5.5vw, 72px)', fontWeight: 800, lineHeight: 1.06, letterSpacing: '-0.03em', color: 'var(--text-primary)', marginBottom: '28px' }}>
               Before you trust a site<br />
               with your data —{' '}
               <em style={{ fontStyle: 'normal', color: 'var(--prism-green)' }}>check it.</em>
