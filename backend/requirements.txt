@@ -1,0 +1,32 @@
+# ============================================================
+# PRISM BACKEND — PYTHON DEPENDENCIES
+# Install with: pip install -r requirements.txt
+# ============================================================
+
+# Web framework
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+
+# HTTP client — for making requests to external APIs
+httpx==0.27.2
+
+# DNS lookups
+dnspython==2.7.0
+
+# Database
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
+alembic==1.14.0
+
+# Data validation
+pydantic==2.10.3
+pydantic-settings==2.6.1
+
+# Environment variables
+python-dotenv==1.0.1
+
+# AI
+anthropic==0.40.0
+
+# Utilities
+python-multipart==0.0.12
