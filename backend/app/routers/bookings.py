@@ -170,6 +170,7 @@ async def submit_booking(request: BookingRequest):
                 db.add(booking)
                 db.commit()
                 db.close()
+                db.refresh(booking)
                 print(f"📅 New booking: {request.name} ({request.email}) — {request.service_type}")
                 print(f"📧 Calling send_emails...")
                 send_emails(booking)
