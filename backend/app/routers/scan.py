@@ -50,6 +50,17 @@ def extract_domain(url: str) -> str:
     domain = parsed.netloc or parsed.path
     return domain.replace("www.", "")
 
+def domain_resolves(domain: str) -> bool:
+    """Quick check if the domain has any DNS record at all."""
+    import socket
+    try:
+        clean = domain.split(":")[0]
+        socket.setdefaulttimeout(4)
+        socket.gethostbyname(clean)
+        return True
+    except (socket.gaierror, socket.timeout, UnicodeError):
+        return False
+
 def save_scan_to_db(scan_id, url, domain, score_data, categories, scanned_at):
     """Save scan result to DB in a background thread — never blocks response."""
     try:
@@ -85,6 +96,13 @@ async def scan_url(request: ScanRequest):
 
     if not domain:
         raise HTTPException(status_code=400, detail="Invalid URL provided.")
+
+    # Check the domain actually exists before running scanners
+    if not domain_resolves(domain):
+        raise HTTPException(
+            status_code=404,
+            detail="This website could not be found. Please check the URL and try again."
+        )
 
     try:
         print(f"🔍 Scanning {domain}")

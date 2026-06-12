@@ -30,11 +30,9 @@ export default function ReviewStrip() {
         if (data.success && data.data && data.data.length > 0) {
           setReviews(data.data as Review[])
         }
-      } catch (error) {
+      } catch {
         console.warn('Could not fetch reviews — using placeholders')
         // Keep placeholder reviews on error
-      } finally {
-        setLoading(false)
       }
     }
 
@@ -52,6 +50,11 @@ export default function ReviewStrip() {
     window.addEventListener('prism:new-review', handler)
     return () => window.removeEventListener('prism:new-review', handler)
   }, [])
+
+// Calculate real weighted average from all loaded reviews
+  const averageRating = reviews.length > 0
+    ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
+    : '0.0'
 
   // Duplicate for seamless loop
   const doubled = [...reviews, ...reviews]
@@ -108,7 +111,15 @@ export default function ReviewStrip() {
         >
           <div style={{ display: 'flex', gap: '2px' }}>
             {[1,2,3,4,5].map((s) => (
-              <span key={s} style={{ fontSize: '14px' }}>⭐</span>
+              <span
+                key={s}
+                style={{
+                  fontSize: '14px',
+                  opacity: s <= Math.round(parseFloat(averageRating)) ? 1 : 0.25,
+                }}
+              >
+                ⭐
+              </span>
             ))}
           </div>
           <div>
@@ -118,7 +129,7 @@ export default function ReviewStrip() {
               fontWeight: 'var(--weight-bold)',
               color:      'var(--text-primary)',
             }}>
-              4.9
+              {averageRating}
             </span>
             <span style={{
               fontFamily: 'var(--font-body)',
@@ -126,7 +137,7 @@ export default function ReviewStrip() {
               color:      'var(--text-muted)',
               marginLeft: '4px',
             }}>
-              / 5 · {reviews.length} reviews
+              / 5 · {reviews.length} review{reviews.length !== 1 ? 's' : ''}
             </span>
           </div>
         </div>

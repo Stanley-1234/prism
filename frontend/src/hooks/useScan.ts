@@ -72,14 +72,14 @@ export function useScan(): UseScanReturn {
   const startScan = useCallback(async (rawUrl: string) => {
     const url = normalizeUrl(rawUrl)
 
-    if (!isValidUrl(url)) {
-      setState((prev) => ({
-        ...prev,
-        status: 'error',
-        error:  'Please enter a valid URL — e.g. https://example.com',
-      }))
-      return
-    }
+      if (!isValidUrl(url)) {
+            setState((prev) => ({
+              ...prev,
+              status: 'error',
+              error:  'Please enter a valid URL and try again.',
+            }))
+            return
+          }
 
     const domain = extractDomain(url)
 

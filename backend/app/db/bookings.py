@@ -35,6 +35,7 @@ class BookingRequest(BaseModel):
 SERVICE_LABELS = {
     "pen_test":     "Penetration Test",
     "audit":        "Security Audit",
+    "web_design":   "Web Design & Development",
     "consultation": "Security Consultation",
 }
 
@@ -173,7 +174,7 @@ async def submit_booking(request: BookingRequest):
         raise HTTPException(status_code=400, detail="Name is required.")
     if not request.email.strip() or "@" not in request.email:
         raise HTTPException(status_code=400, detail="Valid email is required.")
-    if request.service_type not in ["pen_test", "audit", "consultation"]:
+    if request.service_type not in ["pen_test", "audit", "web_design", "consultation"]:
         raise HTTPException(status_code=400, detail="Invalid service type.")
 
     try:

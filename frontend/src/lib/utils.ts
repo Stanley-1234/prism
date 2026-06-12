@@ -111,10 +111,49 @@ export function getSeverityStyles(severity: Severity): {
 // URL VALIDATION
 // ------------------------------------------------------------
 
-export function isValidUrl(input: string): boolean {
+export function isValidUrl(url: string): boolean {
   try {
-    const url = new URL(input)
-    return url.protocol === 'http:' || url.protocol === 'https:'
+    const parsed = new URL(url)
+
+    // Must be http or https
+    if (!['http:', 'https:'].includes(parsed.protocol)) {
+      return false
+    }
+
+    const hostname = parsed.hostname
+
+    // Must have at least one dot (a TLD) — rejects "localhost", "test", etc
+    if (!hostname.includes('.')) {
+      return false
+    }
+
+    // Must not end or start with a dot or hyphen
+    if (
+      hostname.startsWith('.') ||
+      hostname.endsWith('.') ||
+      hostname.startsWith('-') ||
+      hostname.endsWith('-')
+    ) {
+      return false
+    }
+
+    // Each label between dots must be valid (letters, numbers, hyphens)
+    const labels = hostname.split('.')
+    const labelPattern = /^[a-zA-Z0-9-]+$/
+
+    for (const label of labels) {
+      if (!label || !labelPattern.test(label)) {
+        return false
+      }
+    }
+
+    // TLD (last label) must be at least 2 letters, no numbers
+    const tld = labels[labels.length - 1]
+    if (!/^[a-zA-Z]{2,}$/.test(tld)) {
+      return false
+    }
+
+    return true
   } catch {
     return false
   }
