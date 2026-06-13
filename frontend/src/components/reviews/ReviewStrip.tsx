@@ -1,10 +1,3 @@
-// ============================================================
-// PRISM — REVIEW STRIP (LIVE DATA)
-// Fetches real reviews from the backend on mount.
-// Listens for new reviews submitted via ReviewModal.
-// Infinite scrolling strip with fade edges.
-// ============================================================
-
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -13,14 +6,11 @@ import { PLACEHOLDER_REVIEWS } from '@/lib/constants'
 import ReviewCard from './ReviewCard'
 
 export default function ReviewStrip() {
-  const [reviews,  setReviews]  = useState<Review[]>(
+  const [reviews, setReviews] = useState<Review[]>(
     PLACEHOLDER_REVIEWS as unknown as Review[]
   )
-  const [loading,  setLoading]  = useState(true)
+  const [loading, setLoading] = useState(true)
 
-  // ----------------------------------------------------------
-  // FETCH REVIEWS FROM BACKEND ON MOUNT
-  // ----------------------------------------------------------
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -31,17 +21,15 @@ export default function ReviewStrip() {
           setReviews(data.data as Review[])
         }
       } catch {
-        console.warn('Could not fetch reviews — using placeholders')
-        // Keep placeholder reviews on error
+        console.warn('Could not fetch reviews, using placeholders')
+      } finally {
+        setLoading(false)
       }
     }
 
     fetchReviews()
   }, [])
 
-  // ----------------------------------------------------------
-  // LISTEN FOR NEW REVIEWS FROM MODAL
-  // ----------------------------------------------------------
   useEffect(() => {
     const handler = (e: Event) => {
       const custom = e as CustomEvent
@@ -51,12 +39,10 @@ export default function ReviewStrip() {
     return () => window.removeEventListener('prism:new-review', handler)
   }, [])
 
-// Calculate real weighted average from all loaded reviews
   const averageRating = reviews.length > 0
     ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
     : '0.0'
 
-  // Duplicate for seamless loop
   const doubled = [...reviews, ...reviews]
 
   return (
@@ -67,36 +53,34 @@ export default function ReviewStrip() {
         overflow:   'hidden',
       }}
     >
-      {/* HEADING */}
       <div
         style={{
-          maxWidth:     'var(--container-max)',
-          margin:       '0 auto',
-          padding:      '0 var(--section-padding-x)',
-          marginBottom: '40px',
-          display:      'flex',
-          alignItems:   'center',
+          maxWidth:      'var(--container-max)',
+          margin:        '0 auto',
+          padding:       '0 var(--section-padding-x)',
+          marginBottom:  '40px',
+          display:       'flex',
+          alignItems:    'center',
           justifyContent:'space-between',
-          flexWrap:     'wrap',
-          gap:          '12px',
+          flexWrap:      'wrap',
+          gap:           '12px',
         }}
       >
         <div>
           <p className="section-label">What people are saying</p>
           <h2
             style={{
-              fontFamily:   'var(--font-display)',
-              fontSize:     'clamp(26px, 3.5vw, 36px)',
-              fontWeight:   'var(--weight-extrabold)',
-              color:        'var(--text-primary)',
-              letterSpacing:'var(--tracking-tight)',
+              fontFamily:    'var(--font-display)',
+              fontSize:      'clamp(26px, 3.5vw, 36px)',
+              fontWeight:    'var(--weight-extrabold)',
+              color:         'var(--text-primary)',
+              letterSpacing: 'var(--tracking-tight)',
             }}
           >
             Trusted by thousands
           </h2>
         </div>
 
-        {/* AGGREGATE RATING */}
         <div
           style={{
             display:      'flex',
@@ -110,12 +94,12 @@ export default function ReviewStrip() {
           }}
         >
           <div style={{ display: 'flex', gap: '2px' }}>
-            {[1,2,3,4,5].map((s) => (
+            {[1, 2, 3, 4, 5].map((s) => (
               <span
                 key={s}
                 style={{
                   fontSize: '14px',
-                  opacity: s <= Math.round(parseFloat(averageRating)) ? 1 : 0.25,
+                  opacity:  s <= Math.round(parseFloat(averageRating)) ? 1 : 0.25,
                 }}
               >
                 ⭐
@@ -137,15 +121,13 @@ export default function ReviewStrip() {
               color:      'var(--text-muted)',
               marginLeft: '4px',
             }}>
-              / 5 · {reviews.length} review{reviews.length !== 1 ? 's' : ''}
+              / 5 - {reviews.length} review{reviews.length !== 1 ? 's' : ''}
             </span>
           </div>
         </div>
       </div>
 
-      {/* SCROLLING STRIP */}
       <div style={{ position: 'relative', overflow: 'hidden' }}>
-        {/* LEFT FADE */}
         <div style={{
           position:      'absolute',
           left:          0, top: 0, bottom: 0,
@@ -155,7 +137,6 @@ export default function ReviewStrip() {
           pointerEvents: 'none',
         }} />
 
-        {/* RIGHT FADE */}
         <div style={{
           position:      'absolute',
           right:         0, top: 0, bottom: 0,
@@ -165,7 +146,6 @@ export default function ReviewStrip() {
           pointerEvents: 'none',
         }} />
 
-        {/* CARDS TRACK */}
         {loading ? (
           <div style={{
             display:        'flex',
@@ -175,7 +155,7 @@ export default function ReviewStrip() {
             fontSize:       'var(--text-sm)',
             color:          'var(--text-muted)',
           }}>
-            Loading reviews…
+            Loading reviews...
           </div>
         ) : (
           <div
