@@ -94,17 +94,40 @@ export default function ReviewStrip() {
           }}
         >
           <div style={{ display: 'flex', gap: '2px' }}>
-            {[1, 2, 3, 4, 5].map((s) => (
-              <span
-                key={s}
-                style={{
-                  fontSize: '14px',
-                  opacity:  s <= Math.round(parseFloat(averageRating)) ? 1 : 0.25,
-                }}
-              >
-                ⭐
-              </span>
-            ))}
+            {[1, 2, 3, 4, 5].map((s) => {
+              const rating = parseFloat(averageRating)
+              const fillPercent = Math.max(0, Math.min(1, rating - (s - 1))) * 100
+
+              return (
+                <div
+                  key={s}
+                  style={{
+                    position: 'relative',
+                    fontSize: '14px',
+                    lineHeight: 1,
+                    display: 'inline-block',
+                  }}
+                >
+                  {/* EMPTY STAR (background) */}
+                  <span style={{ opacity: 0.25 }}>⭐</span>
+
+                  {/* FILLED STAR (clipped overlay) */}
+                  <span
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: `${fillPercent}%`,
+                      overflow: 'hidden',
+                      whiteSpace: 'nowrap',
+                      display: 'inline-block',
+                    }}
+                  >
+                    ⭐
+                  </span>
+                </div>
+              )
+            })}
           </div>
           <div>
             <span style={{
